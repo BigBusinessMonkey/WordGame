@@ -26,32 +26,40 @@ if(chances > 10):
     
 print("This is a word game. A word has been generated, and it is up to you to guess what it is.")
 print("This round the word has " + str(len(word)) + " characters.")
-print("You may guess letters. Each incorrect guess utilises one chance. You have " + str(chances) + " chances.\n")
 
-#letter guessing
+
+
 Board = str("_" * len(word))
 Board = list(Board)
 Guessed = []
-for chance in range(10000):
+while True:
     if(chances == 0):
         print("Game over. The word was " + "".join(word))
         break
     elif(Board == word):
         print("Congratulations, you found the word!")
-        print("http://tinyurl.com/mc7m96q")
+        print("tinyurl.com/mc7m96q")
         break
-    else:    
+    else:
+        #Actual guessing part of things
         Guess = (input("Take your guess: ")).lower()
         iteration = 0
         for letter in word:
-            if(Guess not in word and Guess not in Guessed):
+            if(Guess == "hint"):
+                print(Hint)
+                chances -= 2
+                break            
+            elif(len(Guess) > 1 or len(Guess) < 1):
+                print("Remember, single characters only.\n")
+                break
+            elif(Guess not in word and Guess not in Guessed):
                 chances -= 1
-                print("No instance of that letter in the word!")
+                print("No instance of that letter in the word!\n")
                 break
             elif(letter == Guess and Guess not in Guessed):
                 Board[iteration] = Guess
                 iteration += 1 
-                print("You found a letter!")
+                print("You found a letter!\n")
                 continue
             elif(Guess in Guessed):
                 print("You have already guessed that. \n")
